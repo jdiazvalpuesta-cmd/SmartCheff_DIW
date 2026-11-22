@@ -1,0 +1,35 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-title>¡Hola Julián!</ion-title>
+    <ion-avatar slot="end" class="avatar" routerLink="/app/perfil">🧑‍🍳</ion-avatar>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <app-titulo-seccion titulo="Tu despensa inteligente">
+    <a routerLink="/app/despensa" class="enlace">Ver todo</a>
+  </app-titulo-seccion>
+
+  <div class="chips">
+    @for (i of estado.porCaducar(); track i.id) {
+      <ion-chip [class.urgente]="i.caducaEnDias === 0">
+        {{ i.nombre }} ·
+        @if (i.caducaEnDias === 0) { ¡Caduca hoy! } @else { Queda{{ i.caducaEnDias === 1 ? ' 1 día' : ' ' + i.caducaEnDias + ' días' }} }
+      </ion-chip>
+    } @empty {
+      <p class="suave">Nada a punto de caducar 🎉</p>
+    }
+  </div>
+
+  <ion-button expand="block" routerLink="/app/cocinar">
+    Añadir Ingredientes <ion-icon slot="end" name="arrow-forward"></ion-icon>
+  </ion-button>
+
+  <app-titulo-seccion titulo="Recetas recomendadas" subtitulo="Aprovecha lo que tienes en casa"></app-titulo-seccion>
+  @for (r of estado.resultados().slice(0, 3); track r.receta.id; let primero = $first) {
+    <app-receta-tarjeta [receta]="r.receta" [pct]="r.pct" [favorita]="estado.esFavorita(r.receta.id)"
+                        [variante]="primero ? 'grande' : 'compacta'"></app-receta-tarjeta>
+  } @empty {
+    <app-estado-vacio titulo="Sin ideas todavía" mensaje="Dinos qué ingredientes tienes y te sugerimos recetas."></app-estado-vacio>
+  }
+</ion-content>

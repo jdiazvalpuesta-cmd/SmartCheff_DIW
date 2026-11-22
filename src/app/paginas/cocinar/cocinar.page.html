@@ -1,0 +1,26 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar><ion-title>¿Qué tienes en casa hoy?</ion-title></ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <p class="suave">Selecciona los ingredientes que quieres aprovechar para Julián.</p>
+  <ion-searchbar placeholder="Añadir más ingredientes…" (ionInput)="busqueda.set($any($event).detail.value ?? '')"></ion-searchbar>
+
+  <app-titulo-seccion titulo="Seleccionados / En casa"></app-titulo-seccion>
+  @for (i of visibles(); track i.id) {
+    <app-chip-ingrediente [nombre]="i.nombre" [emoji]="i.emoji" [activo]="estado.tengo().includes(i.id)"
+                          (alternar)="estado.toggleTengo(i.id)"></app-chip-ingrediente>
+  } @empty {
+    <p class="suave">Ningún ingrediente coincide con «{{ busqueda() }}».</p>
+  }
+
+  <app-titulo-seccion titulo="Filtros preferidos"></app-titulo-seccion>
+  @for (f of filtros; track f.id) {
+    <ion-chip [class.on]="estado.filtros().includes(f.id)" (click)="estado.toggleFiltro(f.id)">{{ f.nombre }}</ion-chip>
+  }
+
+  <ion-button expand="block" routerLink="/app/cocinar/resultados">
+    Buscar Recetas ({{ estado.resultados().length }} disponibles)
+    <ion-icon slot="end" name="arrow-forward"></ion-icon>
+  </ion-button>
+</ion-content>

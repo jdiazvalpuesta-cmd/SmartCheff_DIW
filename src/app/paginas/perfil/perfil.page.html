@@ -1,0 +1,46 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start"><ion-back-button defaultHref="/app/mi-espacio"></ion-back-button></ion-buttons>
+    <ion-title>Mi Perfil</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div class="cabecera">
+    <ion-avatar>🧑‍🍳</ion-avatar>
+    <div><strong>Julián Martínez</strong><br /><span>julian.martinez&#64;mail.com</span><br /><em>Miembro Premium</em></div>
+  </div>
+
+  <div class="stats">
+    <div><b>{{ estado.tengo().length }}</b><span>Ingredientes totales</span></div>
+    <div><b>{{ estado.porCaducar().length }}</b><span>Por agotarse</span></div>
+  </div>
+
+  <ion-list lines="full" class="list-inset">
+    <ion-item routerLink="/suscripciones" detail>
+      <ion-icon slot="start" name="star-outline"></ion-icon>
+      <ion-label>Suscripción Premium</ion-label>
+      <ion-note slot="end" color="success">Activa</ion-note>
+    </ion-item>
+    <ion-item routerLink="/app/despensa" detail>
+      <ion-icon slot="start" name="basket-outline"></ion-icon>
+      <ion-label>Mi despensa</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-icon slot="start" name="moon-outline"></ion-icon>
+      <ion-toggle [checked]="oscuro()" (ionChange)="alternarOscuro($any($event).detail.checked)">Modo oscuro</ion-toggle>
+    </ion-item>
+    <ion-item detail>
+      <ion-icon slot="start" name="help-circle-outline"></ion-icon>
+      <ion-label>Ayuda y soporte</ion-label>
+    </ion-item>
+    <ion-item detail>
+      <ion-icon slot="start" name="shield-checkmark-outline"></ion-icon>
+      <ion-label>Privacidad y seguridad</ion-label>
+    </ion-item>
+    <ion-item routerLink="/login" routerDirection="root" lines="none">
+      <ion-icon slot="start" name="log-out-outline" color="danger"></ion-icon>
+      <ion-label color="danger">Cerrar Sesión</ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

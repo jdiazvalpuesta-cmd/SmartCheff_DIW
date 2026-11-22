@@ -1,0 +1,6 @@
+.avatar { width: 38px; height: 38px; margin-right: 14px; background: var(--app-acento-suave); display: grid; place-items: center; font-size: 22px; }
+.chips { display: flex; flex-wrap: wrap; margin-bottom: 8px; }
+ion-chip { --background: var(--app-aviso-suave); --color: var(--app-aviso); font-weight: 700; }
+ion-chip.urgente { --background: var(--app-acento-suave); --color: var(--app-acento); }
+.enlace { color: var(--app-acento); font-weight: 700; font-size: 0.85rem; }
+.suave { color: var(--app-texto-suave); margin: 0; }

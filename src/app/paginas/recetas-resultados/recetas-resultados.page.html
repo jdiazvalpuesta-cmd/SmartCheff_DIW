@@ -1,0 +1,17 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start"><ion-back-button defaultHref="/app/cocinar"></ion-back-button></ion-buttons>
+    <ion-title>Recetas para ti</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <p class="suave">{{ estado.resultados().length }} receta(s) con lo que tienes en casa.</p>
+  @for (r of estado.resultados(); track r.receta.id) {
+    <app-receta-tarjeta [receta]="r.receta" [pct]="r.pct" [favorita]="estado.esFavorita(r.receta.id)"></app-receta-tarjeta>
+  } @empty {
+    <app-estado-vacio titulo="Sin resultados" mensaje="Prueba a quitar algún filtro o añadir ingredientes.">
+      <ion-button routerLink="/app/cocinar" fill="outline">Cambiar ingredientes</ion-button>
+    </app-estado-vacio>
+  }
+</ion-content>

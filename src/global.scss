@@ -1,0 +1,50 @@
+/* Fuentes propias */
+@import '@fontsource/poppins/600.css';
+@import '@fontsource/poppins/700.css';
+@import '@fontsource/lato/400.css';
+@import '@fontsource/lato/700.css';
+
+/* Estilos de Ionic (núcleo + utilidades) */
+@import '@ionic/angular/css/core.css';
+@import '@ionic/angular/css/normalize.css';
+@import '@ionic/angular/css/structure.css';
+@import '@ionic/angular/css/typography.css';
+@import '@ionic/angular/css/padding.css';
+@import '@ionic/angular/css/float-elements.css';
+@import '@ionic/angular/css/text-alignment.css';
+@import '@ionic/angular/css/text-transformation.css';
+@import '@ionic/angular/css/flex-utils.css';
+@import '@ionic/angular/css/display.css';
+
+/* Paleta oscura controlada por clase (<html class="ion-palette-dark">) */
+@import '@ionic/angular/css/palettes/dark.class.css';
+
+/* Estilos globales de SmartChef */
+ion-content { --background: var(--app-fondo); }
+ion-toolbar { --background: var(--app-fondo); --color: var(--app-texto); }
+ion-title { font-family: var(--app-fuente-titulo); font-weight: 700; }
+h1, h2, h3 { font-family: var(--app-fuente-titulo); color: var(--app-texto); }
+
+ion-button {
+  --border-radius: 12px;
+  text-transform: none;
+  font-weight: 700;
+  letter-spacing: 0;
+  min-height: 46px;
+}
+ion-card {
+  --background: var(--app-superficie);
+  border-radius: var(--app-radio);
+  box-shadow: var(--app-sombra);
+  margin: 0;
+}
+ion-searchbar {
+  --background: var(--app-superficie);
+  --border-radius: 12px;
+  --box-shadow: 0 0 0 1px var(--app-borde);
+  --placeholder-color: var(--ion-color-medium);
+}
+ion-list.list-inset {
+  border-radius: var(--app-radio);
+  box-shadow: 0 0 0 1px var(--app-borde);
+}

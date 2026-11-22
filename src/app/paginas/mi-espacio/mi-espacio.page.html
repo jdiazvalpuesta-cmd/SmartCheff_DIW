@@ -1,0 +1,92 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-title>Julián Martínez</ion-title>
+    <ion-avatar slot="start" class="avatar" routerLink="/app/perfil">🧑‍🍳</ion-avatar>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div class="impacto">
+    <strong>🌱 ¡Buen trabajo esta semana!</strong>
+    <p>Has cocinado {{ estado.historial().length }} platos aprovechando lo que ya tenías en casa.</p>
+  </div>
+
+  <ion-segment [value]="vista()" (ionChange)="vista.set($any($event).detail.value)">
+    <ion-segment-button value="colecciones"><ion-label>Favoritas</ion-label></ion-segment-button>
+    <ion-segment-button value="historial"><ion-label>Historial</ion-label></ion-segment-button>
+  </ion-segment>
+
+  @switch (vista()) {
+    @case ('colecciones') {
+      <app-titulo-seccion titulo="Tus colecciones favoritas" subtitulo="Organizadas para cocinar por uno">
+        <ion-button size="small" fill="clear" (click)="modalColeccion.set(true)">+ Nueva</ion-button>
+      </app-titulo-seccion>
+      @for (c of estado.colecciones(); track c.id) {
+        <h3 class="col">{{ c.nombre }} <ion-note>{{ c.recetas.length }} recetas</ion-note></h3>
+        @for (id of c.recetas; track id) {
+          @if (estado.receta(id); as r) {
+            <app-receta-tarjeta [receta]="r" variante="compacta" [favorita]="true"></app-receta-tarjeta>
+          }
+        } @empty {
+          <p class="suave">Aún vacía: guarda recetas desde su ficha.</p>
+        }
+      } @empty {
+        <app-estado-vacio icono="folder-outline" titulo="Sin colecciones" mensaje="Crea una para organizar tus recetas."></app-estado-vacio>
+      }
+    }
+    @case ('historial') {
+      <app-titulo-seccion titulo="Historial de cocinado" subtitulo="Tu registro semanal de sostenibilidad"></app-titulo-seccion>
+      @for (d of estado.semana(); track d.fecha) {
+        <p class="dia">{{ d.fecha }}</p>
+        @for (reg of d.registros; track reg.id) {
+          @if (estado.receta(reg.recetaId); as r) {
+            <app-receta-tarjeta [receta]="r" variante="compacta"></app-receta-tarjeta>
+          }
+          @if (reg.ahorro || reg.nota) {
+            <p class="suave nota">@if (reg.ahorro) { 🌿 {{ reg.ahorro }} }  @if (reg.nota) { · 📝 {{ reg.nota }} }</p>
+          }
+        }
+      } @empty {
+        <app-estado-vacio titulo="Semana en blanco" mensaje="Pulsa + para anotar lo que has cocinado."></app-estado-vacio>
+      }
+    }
+  }
+
+  @if (vista() === 'historial') {
+    <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+      <ion-fab-button (click)="modalRegistro.set(true)"><ion-icon name="add"></ion-icon></ion-fab-button>
+    </ion-fab>
+  }
+</ion-content>
+
+<!-- Ventana: registrar qué se cocinó (formulario con 4 tipos de campo) -->
+<ion-modal [isOpen]="modalRegistro()" (didDismiss)="modalRegistro.set(false)">
+  <ng-template>
+    <ion-header>
+      <ion-toolbar>
+        <ion-title>¿Qué cocinaste?</ion-title>
+        <ion-buttons slot="end"><ion-button (click)="modalRegistro.set(false)">Cerrar</ion-button></ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content class="ion-padding">
+      <ion-select label="Receta" label-placement="stacked" fill="outline" interface="popover" placeholder="Elige una" [(ngModel)]="recetaId">
+        @for (r of estado.recetas; track r.id) {
+          <ion-select-option [value]="r.id">{{ r.titulo }}</ion-select-option>
+        }
+      </ion-select>
+      <ion-datetime presentation="date" [(ngModel)]="fecha" class="fecha"></ion-datetime>
+      <ion-input label="Nota (opcional)" label-placement="floating" fill="outline" [(ngModel)]="nota"></ion-input>
+      <ion-toggle [(ngModel)]="repetir" class="rep">Lo repetiría</ion-toggle>
+      <ion-button expand="block" [disabled]="!recetaId" (click)="guardarRegistro()">Guardar en mi historial</ion-button>
+    </ion-content>
+  </ng-template>
+</ion-modal>
+
+<ion-modal [isOpen]="modalColeccion()" (didDismiss)="modalColeccion.set(false)" [initialBreakpoint]="0.35" [breakpoints]="[0, 0.35]">
+  <ng-template>
+    <ion-content class="ion-padding">
+      <ion-input label="Nombre de la colección" label-placement="floating" fill="outline" [(ngModel)]="nombreColeccion"></ion-input>
+      <ion-button expand="block" (click)="crearColeccion()">Crear</ion-button>
+    </ion-content>
+  </ng-template>
+</ion-modal>

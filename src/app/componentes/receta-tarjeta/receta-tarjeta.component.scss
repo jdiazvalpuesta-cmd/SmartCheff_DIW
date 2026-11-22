@@ -1,0 +1,13 @@
+    ion-card { margin: 0 0 14px; cursor: pointer; border-radius: 18px; box-shadow: var(--app-sombra); background: var(--app-superficie); }
+    .foto { height: 170px; background: linear-gradient(135deg, var(--app-acento-suave), var(--app-ok-suave)); }
+    img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .info { padding: 12px 14px 14px; }
+    h3 { margin: 8px 0 0; font-family: var(--app-fuente-titulo); font-size: 1.05rem; color: var(--app-texto); }
+    .etiquetas { display: flex; flex-wrap: wrap; gap: 6px; }
+    .pill { font-size: .72rem; font-weight: 700; padding: 3px 9px; border-radius: 999px; background: var(--app-fondo); color: var(--app-texto-suave); }
+    .verde { background: var(--app-ok-suave); color: var(--app-ok); } .ambar { background: var(--app-aviso-suave); color: var(--app-aviso); }
+    .rojo { background: var(--app-acento-suave); color: var(--app-acento); }
+    .compacta { display: flex; align-items: center; }
+    .compacta .foto { height: 72px; width: 72px; flex: none; margin: 8px; border-radius: 12px; overflow: hidden; }
+    .compacta .info { padding: 8px 12px 8px 4px; } .compacta h3 { font-size: .95rem; margin-top: 4px; }
+  

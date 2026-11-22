@@ -1,0 +1,31 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-title>SmartChef Premium</ion-title>
+    <ion-buttons slot="end">
+      <ion-button routerLink="/app/perfil" routerDirection="back"><ion-icon slot="icon-only" name="close"></ion-icon></ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div class="hero">⭐</div>
+  <h1>Cocina mejor, desperdicia menos</h1>
+
+  <ion-segment [value]="plan()" (ionChange)="plan.set($any($event).detail.value)">
+    <ion-segment-button value="mensual"><ion-label>Mensual</ion-label></ion-segment-button>
+    <ion-segment-button value="anual"><ion-label>Anual</ion-label></ion-segment-button>
+  </ion-segment>
+
+  @switch (plan()) {
+    @case ('mensual') { <p class="precio"><b>4,99 €</b> / mes</p> }
+    @case ('anual') { <p class="precio"><b>39,99 €</b> / año <span class="ahorro">Ahorras un 33 %</span></p> }
+  }
+
+  <ul>
+    @for (v of ventajas; track v) {
+      <li><ion-icon name="checkmark-circle" color="success"></ion-icon> {{ v }}</li>
+    }
+  </ul>
+
+  <ion-button expand="block" routerLink="/app/perfil" routerDirection="back">Continuar con {{ plan() === 'anual' ? 'el plan anual' : 'el plan mensual' }}</ion-button>
+</ion-content>

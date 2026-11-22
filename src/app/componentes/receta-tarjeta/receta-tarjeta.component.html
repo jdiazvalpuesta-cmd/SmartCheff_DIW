@@ -1,0 +1,19 @@
+    <ion-card [routerLink]="['/app/recetas', receta().id]" [class.compacta]="variante() === 'compacta'">
+      <div class="foto">
+        <img [src]="receta().foto" [alt]="receta().titulo" (error)="$any($event.target).style.display = 'none'" />
+      </div>
+      <div class="info">
+        <div class="etiquetas">
+          @if (pct() !== null) { <span class="pill verde">{{ pct() }}% en casa</span> }
+          @switch (receta().dificultad) {
+            @case ('Fácil') { <span class="pill verde">Fácil</span> }
+            @case ('Media') { <span class="pill ambar">Media</span> }
+            @default { <span class="pill rojo">Difícil</span> }
+          }
+          <span class="pill"><ion-icon name="time-outline" /> {{ receta().minutos }} min</span>
+          @if (favorita()) { <span class="pill rojo">♥</span> }
+        </div>
+        <h3>{{ receta().titulo }}</h3>
+      </div>
+    </ion-card>
+  

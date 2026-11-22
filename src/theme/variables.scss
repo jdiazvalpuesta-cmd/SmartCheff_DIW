@@ -1,0 +1,72 @@
+/* SmartChef · paleta propia (claro y oscuro). Fuentes: Poppins (títulos) y Lato (texto). */
+:root {
+  --app-fuente-titulo: 'Poppins', sans-serif;
+  --app-fuente-texto: 'Lato', sans-serif;
+  --app-radio: 18px;
+
+  --app-fondo: #faf6f0;
+  --app-superficie: #ffffff;
+  --app-borde: #eadfd3;
+  --app-sombra: 0 4px 14px rgba(43, 45, 66, 0.08);
+  --app-texto: #2b2d42;
+  --app-texto-suave: #7a7f8e;
+  --app-acento: #c8503f;
+  --app-acento-suave: #fbe3de;
+  --app-ok: #2e7d4f;
+  --app-ok-suave: #e1f2e7;
+  --app-aviso: #9a6200;
+  --app-aviso-suave: #fff1d6;
+
+  --ion-font-family: var(--app-fuente-texto);
+  --ion-background-color: var(--app-fondo);
+  --ion-text-color: var(--app-texto);
+  --ion-item-background: var(--app-superficie);
+  --ion-toolbar-background: var(--app-fondo);
+
+  --ion-color-primary: #c8503f;
+  --ion-color-primary-rgb: 200, 80, 63;
+  --ion-color-primary-contrast: #ffffff;
+  --ion-color-primary-contrast-rgb: 255, 255, 255;
+  --ion-color-primary-shade: #b04637;
+  --ion-color-primary-tint: #ce6151;
+
+  --ion-color-success: #2e7d4f;
+  --ion-color-success-rgb: 46, 125, 79;
+  --ion-color-success-contrast: #ffffff;
+  --ion-color-success-contrast-rgb: 255, 255, 255;
+  --ion-color-success-shade: #286e46;
+  --ion-color-success-tint: #438a61;
+}
+
+/* --- Modo oscuro: cada color escrito a mano tiene su versión oscura --- */
+.ion-palette-dark {
+  --app-fondo: #121110;
+  --app-superficie: #1c1a18;
+  --app-borde: #2e2b28;
+  --app-sombra: none;
+  --app-texto: #f4f1ec;
+  --app-texto-suave: #a9a39b;
+  --app-acento: #e87a5e;
+  --app-acento-suave: #4a2a27;
+  --app-ok: #6fd196;
+  --app-ok-suave: #213a2b;
+  --app-aviso: #f2c46d;
+  --app-aviso-suave: #44361a;
+
+  --ion-color-primary: #e87a5e;
+  --ion-color-primary-rgb: 232, 122, 94;
+  --ion-color-primary-contrast: #121110;
+  --ion-color-primary-contrast-rgb: 18, 17, 16;
+  --ion-color-primary-shade: #cc6b53;
+  --ion-color-primary-tint: #ea876e;
+}
+
+.ion-palette-dark.ios body,
+.ion-palette-dark body {
+  --ion-background-color: #121110;
+  --ion-background-color-rgb: 18, 17, 16;
+  --ion-text-color: #f4f1ec;
+  --ion-text-color-rgb: 244, 241, 236;
+  --ion-item-background: #1c1a18;
+  --ion-toolbar-background: #121110;
+}

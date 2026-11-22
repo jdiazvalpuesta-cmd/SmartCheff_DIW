@@ -1,0 +1,5 @@
+    <ion-chip [class.activo]="activo()" (click)="alternar.emit()">
+      {{ nombre() }} {{ emoji() }}
+      @if (activo()) { <ion-icon name="checkmark-circle" /> }
+    </ion-chip>
+  

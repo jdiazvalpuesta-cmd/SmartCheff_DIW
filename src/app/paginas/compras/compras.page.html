@@ -1,0 +1,31 @@
+    <ion-header class="ion-no-border"><ion-toolbar><ion-title>Tu lista de compras</ion-title></ion-toolbar></ion-header>
+    <ion-content class="ion-padding">
+      <p class="suave">Calculada automáticamente para una sola persona.</p>
+      <ion-searchbar #buscador placeholder="Añadir ingrediente (Intro)…" enterkeyhint="done"
+                     (keyup.enter)="anadir(buscador)" />
+      <ion-segment [value]="vista()" (ionChange)="vista.set($any($event).detail.value)">
+        <ion-segment-button value="pendientes"><ion-label>Por comprar ({{ pendientes().length }})</ion-label></ion-segment-button>
+        <ion-segment-button value="comprados"><ion-label>En el carrito ({{ comprados().length }})</ion-label></ion-segment-button>
+      </ion-segment>
+
+      <ion-list lines="full" class="lista">
+        @for (c of lista(); track c.id) {
+          <ion-item-sliding>
+            <ion-item>
+              <ion-checkbox slot="start" [checked]="c.comprado" (ionChange)="estado.toggleCompra(c.id)" />
+              <ion-label [class.tachado]="c.comprado">{{ c.nombre }}</ion-label>
+              <ion-note slot="end">{{ c.cantidad }}</ion-note>
+            </ion-item>
+            <ion-item-options side="end">
+              <ion-item-option color="danger" (click)="estado.quitarCompra(c.id)"><ion-icon slot="icon-only" name="trash" /></ion-item-option>
+            </ion-item-options>
+          </ion-item-sliding>
+        }
+      </ion-list>
+      @if (lista().length === 0) {
+        <app-estado-vacio icono="bag-outline" [titulo]="vista() === 'pendientes' ? 'Lista vacía' : 'Carrito vacío'"
+          [mensaje]="vista() === 'pendientes' ? 'Abre una receta y pulsa «Añadir faltantes a lista de compras».' : 'Marca lo que vayas cogiendo.'" />
+      }
+      @if (comprados().length) { <ion-button fill="clear" expand="block" (click)="vaciarComprados()">Quitar comprados</ion-button> }
+    </ion-content>
+  

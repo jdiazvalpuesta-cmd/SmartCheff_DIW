@@ -1,0 +1,49 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start"><ion-back-button defaultHref="/app/cocinar"></ion-back-button></ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  @if (receta(); as r) {
+    <div class="foto"><img [src]="r.foto" [alt]="r.titulo" (error)="$any($event.target).style.display = 'none'" /></div>
+    <div class="cuerpo">
+      <p class="meta">{{ r.porciones }} porción(es) · {{ r.dificultad }} · {{ r.minutos }} min</p>
+      <h1>{{ r.titulo }}</h1>
+
+      <app-titulo-seccion titulo="Ingredientes necesarios" subtitulo="Verifica qué tienes y qué te falta"></app-titulo-seccion>
+      <ion-list lines="full" class="lista">
+        @for (i of r.ingredientes; track i.id) {
+          <ion-item>
+            <ion-icon slot="start" [name]="estado.tengo().includes(i.id) ? 'checkmark-circle' : 'close'"
+                      [color]="estado.tengo().includes(i.id) ? 'success' : 'danger'"></ion-icon>
+            <ion-label>{{ i.nombre }}</ion-label>
+            <ion-note slot="end">{{ i.cantidad }}</ion-note>
+          </ion-item>
+        }
+      </ion-list>
+
+      <app-titulo-seccion titulo="Pasos sencillos"></app-titulo-seccion>
+      @for (p of r.pasos; track $index) {
+        <div class="paso"><span class="num">{{ $index + 1 }}</span><p>{{ p }}</p></div>
+      }
+
+      <ion-item class="guardar" lines="none">
+        <ion-select label="Guardar en colección" label-placement="stacked" interface="popover" placeholder="Ninguna"
+                    [value]="estado.coleccionDe(r.id)" (ionChange)="estado.guardarEn(r.id, $any($event).detail.value)">
+          <ion-select-option [value]="0">Ninguna</ion-select-option>
+          @for (c of estado.colecciones(); track c.id) {
+            <ion-select-option [value]="c.id">{{ c.nombre }}</ion-select-option>
+          }
+        </ion-select>
+      </ion-item>
+
+      <ion-button expand="block" (click)="anadir()" [disabled]="faltan() === 0">
+        <ion-icon slot="start" name="bag-outline"></ion-icon>
+        @if (faltan() === 0) { Tienes todo lo necesario } @else { Añadir faltantes a lista de compras ({{ faltan() }}) }
+      </ion-button>
+    </div>
+  } @else {
+    <app-estado-vacio titulo="Receta no encontrada" mensaje="Esa receta no existe."></app-estado-vacio>
+  }
+</ion-content>

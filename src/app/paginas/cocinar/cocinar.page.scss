@@ -1,0 +1,5 @@
+.suave { color: var(--app-texto-suave); margin: 0 0 8px; font-size: 0.9rem; }
+ion-searchbar { padding: 0; }
+ion-chip { --background: var(--app-superficie); --color: var(--app-texto); border: 1px solid var(--app-borde); font-weight: 600; }
+ion-chip.on { --background: var(--app-acento-suave); --color: var(--app-acento); border-color: var(--app-acento); }
+ion-button { margin-top: 22px; }
